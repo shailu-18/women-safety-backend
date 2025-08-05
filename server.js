@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO_URI, {
 /* ----- ROUTES ----- */
 
 // POST: Submit emergency report
-app.post('/api/report', async (req, res) => {
+app.post('/api/report', async (_, res) => {
   try {
     const newReport = new Report(req.body);
     await newReport.save();
@@ -41,7 +41,7 @@ app.get('/api/report', async (_, res) => {
 });
 
 // POST: Add emergency contact
-app.post('/api/contact', async (req, res) => {
+app.post('/api/contact', async (_, res) => {
   try {
     const newContact = new Contact(req.body);
     await newContact.save();
@@ -52,7 +52,7 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // GET: Get contacts for a user
-app.get('/api/contact/:email', async (req, res) => {
+app.get('/api/contact/:email', async (_, res) => {
   try {
     const contacts = await Contact.find({ userEmail: req.params.email });
     res.json(contacts);
@@ -62,7 +62,7 @@ app.get('/api/contact/:email', async (req, res) => {
 });
 
 // POST: Save recording metadata (optional)
-app.post('/api/recording', async (req, res) => {
+app.post('/api/recording', async (_, res) => {
   try {
     const newRec = new Recording(req.body);
     await newRec.save();
@@ -73,7 +73,7 @@ app.post('/api/recording', async (req, res) => {
 });
 
 // GET: Get all recordings for a user
-app.get('/api/recording/:email', async (req, res) => {
+app.get('/api/recording/:email', async (_, res) => {
   try {
     const recs = await Recording.find({ userEmail: req.params.email });
     res.json(recs);
